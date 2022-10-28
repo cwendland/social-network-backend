@@ -3,19 +3,16 @@ const formatDate = require('../utils/formatDate');
 
 const reactionSchema = new Schema(
     {
-        reactionId: {
+        responseId: {
             type: Schema.Types.ObjectId,
             default: () => new Types.ObjectId(),
         },
-        reactionBody: {
+        responseBody: {
             type: String,
-            required: true,
             max_length: 280,
         },
         username: {
             type: String,
-            required: true,
-            ref: 'User',
         },
         createdAt: {
             type: Date,
@@ -27,6 +24,7 @@ const reactionSchema = new Schema(
         toJSON: {
             getters: true,
         },
+        if: false
     }
 );
 
@@ -45,9 +43,8 @@ const thoughtSchema = new Schema({
     },
     username: {
         type: String,
-        ref: 'User',
     },
-    reactions: [reactionSchema]
+    responses: [reactionSchema]
 },
 {
     toJSON: {
