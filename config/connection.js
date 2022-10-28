@@ -1,7 +1,7 @@
 const {connect, connection} = require('mongoose');
 
 connect('mongodb://localhost/thoughtsAndResponses', {
-    useNewUrlParse: true,
+    useNewUrlParser: true,
     useUnifiedTopology: true,
 });
 
