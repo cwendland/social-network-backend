@@ -53,10 +53,10 @@ module.exports = {
             {$addToSet: {friends: req.body}},
             {runValidators: true, new: true}
         )
-          .then((video) =>
-            !video
-            ? res.status(404).json({ message: 'No video with this id!' })
-            : res.json(video)
+          .then((user) =>
+            !user
+            ? res.status(404).json({ message: 'No user with this id!' })
+            : res.json(user)
           )
           .catch((err) => res.status(500).json(err));
     },
