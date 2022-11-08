@@ -1,7 +1,7 @@
 const {Schema, Types, model} = require('mongoose');
-const formatDate = require('../utils/formatDate');
+const moment = require('moment');
 
-const reactionSchema = new Schema(
+const responseSchema = new Schema(
     {
         responseId: {
             type: Schema.Types.ObjectId,
@@ -17,14 +17,16 @@ const reactionSchema = new Schema(
         createdAt: {
             type: Date,
             default: Date.now,
-            get: (date) => formatDate(date),
+            get: (date) => {
+                return moment(date).format("MMM DD, YYYY [at] hh:mma");
+            },
         },
     },
     {
         toJSON: {
             getters: true,
         },
-        if: false
+        id: false
     }
 );
 
@@ -34,25 +36,28 @@ const thoughtSchema = new Schema({
         required: true,
         min_length: 1,
         max_length: 128,
-        //TODO validate between 1 and 128 chars
     },
     createdAt: {
         type: Date,
         default: Date.now,
-        get: (date) => formatDate(date),
+        get: (date) => {
+            return moment(date).format("MMM DD, YYYY [at] hh:mma");
+        },
     },
     username: {
         type: String,
+        required: true,
     },
-    responses: [reactionSchema]
+    responses: [responseSchema]
 },
 {
     toJSON: {
+        virtuals: true,
         getters: true,
     },
 });
 
-thoughtSchema.virtual('reactionCount').get(() => this.reactions.length);
+thoughtSchema.virtual('responseCount').get(() => this.responses.length);
 
 const Thought = model('Thought', thoughtSchema);
 
