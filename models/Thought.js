@@ -57,7 +57,7 @@ const thoughtSchema = new Schema({
     },
 });
 
-thoughtSchema.virtual('responseCount').get(() => this.responses.length);
+//thoughtSchema.virtual('responseCount').get(() => this.responses.length);
 
 const Thought = model('Thought', thoughtSchema);
 

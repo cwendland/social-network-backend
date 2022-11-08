@@ -11,11 +11,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(routes);
 
-db.once("open", async () => {
-  const thought = await Thought.find();
-  console.log(thought[0]);
-})
-
 db.once("open", () => {
   app.listen(PORT, () => {
     console.log(`API server for social network running on port ${PORT}!`);
